@@ -1,0 +1,34 @@
+# Dockerfile para desenvolvimento
+FROM ruby:3.4.7-slim
+
+# Instalar dependências
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    curl \
+    git \
+    libpq-dev \
+    libyaml-dev \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Diretório de trabalho
+WORKDIR /rails
+
+# Copiar Gemfile e instalar gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# Copiar o código da aplicação
+COPY . .
+
+# Copiar e dar permissão ao script de entrada
+COPY docker-entrypoint-dev.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint-dev.sh
+
+# Expor porta do Rails
+EXPOSE 3000
+
+# Comando para iniciar o servidor
+ENTRYPOINT ["docker-entrypoint-dev.sh"]
+

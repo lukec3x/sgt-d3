@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16
+    container_name: segarante_desafio_3_api_db
+    environment:
+      POSTGRES_USER: segarante_desafio_3_api
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: segarante_desafio_3_api_development
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U segarante_desafio_3_api -d segarante_desafio_3_api_development"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: segarante_desafio_3_api_web
+    environment:
+      RAILS_ENV: development
+      DATABASE_HOST: db
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  bundle_cache:
+
