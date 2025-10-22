@@ -10,8 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_225237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "policies", force: :cascade do |t|
+    t.string "number"
+    t.date "issue_date"
+    t.date "start_date"
+    t.date "end_date"
+    t.decimal "insured_amount", precision: 15, scale: 2
+    t.decimal "maximum_coverage", precision: 15, scale: 2
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_policies_on_number", unique: true
+  end
 end
