@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "2e72d737-4030-4cc9-b41d-0410e814187e",
+		"name": "SGT - Desafio 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37117710"
+	},
+	"item": [
+		{
+			"name": "Policies",
+			"item": [
+				{
+					"name": "List all policies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/policies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get policy by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/policies/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create policy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"policy\": {\n    \"number\": \"APO-2024-001\",\n    \"start_date\": \"2025-10-01\",\n    \"end_date\": \"2026-11-01\",\n    \"insured_amount\": 100000.00\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endorsements",
+			"item": [
+				{
+					"name": "List all endorsements by policy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/policies/1/endorsements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"1",
+								"endorsements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get endorsement by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/endorsements/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"endorsements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create endorsement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"endorsement\": {\n        // \"insured_amount\": 200000.00,\n        // \"start_date\": \"2025-10-20\",\n        \"end_date\": \"2026-9-21\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/policies/1/endorsements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"1",
+								"endorsements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel last valid endorsement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/policies/1/endorsements/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"policies",
+								"1",
+								"endorsements",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		}
+	]
+}
