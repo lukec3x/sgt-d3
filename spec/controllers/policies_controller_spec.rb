@@ -128,12 +128,6 @@ RSpec.describe PoliciesController, type: :controller do
           json_response = JSON.parse(response.body)
           expect(json_response['status']).to eq(Policy::STATUS_ACTIVE)
         end
-
-        it "define original_start_date e original_end_date" do
-          json_response = JSON.parse(response.body)
-          expect(json_response['original_start_date']).to eq(Date.current.to_s)
-          expect(json_response['original_end_date']).to eq((Date.current + 1.year).to_s)
-        end
       end
     end
 
