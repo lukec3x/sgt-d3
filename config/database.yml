@@ -57,6 +57,10 @@ development:
 test:
   <<: *default
   database: segarante_desafio_3_api_test
+  username: segarante_desafio_3_api
+  password: postgres
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: 5432
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
