@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :policies, only: [:index, :show, :create] do
-    resources :endorsements, only: [:index, :create] do
+  resources :policies, only: [ :index, :show, :create ] do
+    resources :endorsements, only: [ :index, :create ] do
       collection do
         post :cancel
       end
     end
   end
-  
-  resources :endorsements, only: [:show]
+
+  resources :endorsements, only: [ :show ]
 end

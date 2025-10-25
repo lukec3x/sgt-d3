@@ -69,7 +69,7 @@ class Endorsement < ApplicationRecord
                        .where.not(endorsement_type: TYPE_CANCELLATION)
                        .order(created_at: :desc)
                        .first
-    
+
     self.cancelled_endorsement_id = last_valid&.id
   end
 
@@ -154,17 +154,17 @@ class Endorsement < ApplicationRecord
 
   def recalculate_policy_from_scratch
     policy.reload
-    
+
     policy.update_columns(
       maximum_coverage: policy.insured_amount,
       start_date: policy.original_start_date,
       end_date: policy.original_end_date
     )
-    
+
     active_endorsements = policy.endorsements.active
                                 .where.not(endorsement_type: TYPE_CANCELLATION)
                                 .order(created_at: :asc)
-    
+
     active_endorsements.each do |endorsement|
       policy.update_columns(
         maximum_coverage: endorsement.insured_amount || policy.maximum_coverage,
@@ -172,21 +172,21 @@ class Endorsement < ApplicationRecord
         end_date: endorsement.end_date || policy.end_date
       )
     end
-    
+
     update_policy_status
   end
 
   def update_policy_status
     policy.reload
-    
+
     current_date = Date.current
     within_validity = policy.start_date <= current_date && policy.end_date >= current_date
-    
+
     days_difference = (policy.start_date - policy.issue_date).to_i.abs
     start_date_valid = days_difference <= 30
-    
+
     new_status = (within_validity && start_date_valid) ? Policy::STATUS_ACTIVE : Policy::STATUS_CANCELLED
-    
+
     policy.update_columns(status: new_status)
   end
 end

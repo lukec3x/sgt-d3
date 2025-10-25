@@ -1,6 +1,6 @@
 class EndorsementsController < ApplicationController
-  before_action :set_policy, only: [:index, :create, :cancel]
-  before_action :set_endorsement, only: [:show]
+  before_action :set_policy, only: [ :index, :create, :cancel ]
+  before_action :set_endorsement, only: [ :show ]
 
   # GET /policies/:policy_id/endorsements
   def index
@@ -45,6 +45,6 @@ class EndorsementsController < ApplicationController
     end
 
     def endorsement_params
-      params.expect(endorsement: [:insured_amount, :start_date, :end_date])
+      params.expect(endorsement: [ :insured_amount, :start_date, :end_date ])
     end
 end

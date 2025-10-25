@@ -12,7 +12,7 @@ class CreateEndorsements < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    
+
     add_index :endorsements, :cancelled_endorsement_id
     add_index :endorsements, :status
     add_index :endorsements, :endorsement_type

@@ -10,7 +10,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1
   def show
-    render json: @policy, include: [:endorsements]
+    render json: @policy, include: [ :endorsements ]
   end
 
   # POST /policies
