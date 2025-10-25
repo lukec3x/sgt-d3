@@ -36,15 +36,16 @@ class EndorsementsController < ApplicationController
   end
 
   private
-    def set_policy
-      @policy = Policy.find(params[:policy_id])
-    end
 
-    def set_endorsement
-      @endorsement = Endorsement.find(params[:id])
-    end
+  def set_policy
+    @policy = Policy.find(params[:policy_id])
+  end
 
-    def endorsement_params
-      params.expect(endorsement: [ :insured_amount, :start_date, :end_date ])
-    end
+  def set_endorsement
+    @endorsement = Endorsement.find(params[:id])
+  end
+
+  def endorsement_params
+    params.expect(endorsement: [ :insured_amount, :start_date, :end_date ])
+  end
 end

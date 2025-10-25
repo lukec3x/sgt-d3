@@ -3,14 +3,14 @@ class PoliciesController < ApplicationController
 
   # GET /policies
   def index
-    @policies = Policy.all
+    @policies = Policy.includes(:endorsements).order(created_at: :desc)
 
     render json: @policies
   end
 
   # GET /policies/1
   def show
-    render json: @policy, include: [ :endorsements ]
+    render json: @policy
   end
 
   # POST /policies
@@ -25,11 +25,12 @@ class PoliciesController < ApplicationController
   end
 
   private
-    def set_policy
-      @policy = Policy.find(params.expect(:id))
-    end
 
-    def policy_params
-      params.expect(policy: [ :number, :start_date, :end_date, :insured_amount ])
-    end
+  def set_policy
+    @policy = Policy.find(params.expect(:id))
+  end
+
+  def policy_params
+    params.expect(policy: [ :number, :start_date, :end_date, :insured_amount ])
+  end
 end

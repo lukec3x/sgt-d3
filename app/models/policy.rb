@@ -2,7 +2,7 @@ class Policy < ApplicationRecord
   STATUS_ACTIVE = "ATIVA"
   STATUS_CANCELLED = "BAIXADA"
 
-  has_many :endorsements, -> { order(created_at: :asc) }, dependent: :restrict_with_error
+  has_many :endorsements, -> { order(created_at: :desc) }, dependent: :restrict_with_error
 
   validates :number, presence: true, uniqueness: true
   validates :start_date, :end_date, :insured_amount, presence: true
