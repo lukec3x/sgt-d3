@@ -10,7 +10,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1
   def show
-    render json: @policy
+    render json: @policy, include: [:endorsements]
   end
 
   # POST /policies
@@ -25,12 +25,10 @@ class PoliciesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_policy
       @policy = Policy.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def policy_params
       params.expect(policy: [ :number, :start_date, :end_date, :insured_amount ])
     end

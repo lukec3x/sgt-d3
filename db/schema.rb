@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_225237) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_25_004954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "endorsements", force: :cascade do |t|
+    t.bigint "policy_id", null: false
+    t.date "issue_date"
+    t.string "endorsement_type"
+    t.decimal "insured_amount", precision: 15, scale: 2
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "cancelled_endorsement_id"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cancelled_endorsement_id"], name: "index_endorsements_on_cancelled_endorsement_id"
+    t.index ["endorsement_type"], name: "index_endorsements_on_endorsement_type"
+    t.index ["policy_id"], name: "index_endorsements_on_policy_id"
+    t.index ["status"], name: "index_endorsements_on_status"
+  end
 
   create_table "policies", force: :cascade do |t|
     t.string "number"
@@ -24,6 +41,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_225237) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "original_start_date"
+    t.date "original_end_date"
     t.index ["number"], name: "index_policies_on_number", unique: true
   end
+
+  add_foreign_key "endorsements", "policies"
 end

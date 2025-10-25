@@ -1,16 +1,15 @@
 class Policy < ApplicationRecord
-  # Constants
   STATUS_ACTIVE = "ATIVA"
   STATUS_CANCELLED = "BAIXADA"
 
-  # Validations
+  has_many :endorsements, -> { order(created_at: :asc) }, dependent: :restrict_with_error
+
   validates :number, presence: true, uniqueness: true
   validates :start_date, :end_date, :insured_amount, presence: true
   validates :insured_amount, :maximum_coverage, numericality: { greater_than_or_equal_to: 0 }
   validate :end_date_must_be_after_start_date
   validate :start_date_within_valid_range
 
-  # Callbacks
   before_validation :set_defaults, on: :create
 
   private
@@ -19,6 +18,8 @@ class Policy < ApplicationRecord
     self.issue_date ||= Date.current
     self.maximum_coverage ||= insured_amount
     self.status ||= STATUS_ACTIVE
+    self.original_start_date ||= start_date
+    self.original_end_date ||= end_date
   end
 
   def end_date_must_be_after_start_date
