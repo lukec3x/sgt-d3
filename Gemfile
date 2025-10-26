@@ -46,7 +46,7 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Bullet gem for detecting N+1 queries
-  gem 'bullet', group: :development
+  gem "bullet", group: :development
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
