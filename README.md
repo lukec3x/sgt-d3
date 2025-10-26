@@ -1,24 +1,70 @@
-# README
+# API de Apólices e Endossos
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API desenvolvida em Ruby on Rails para gerenciar apólices de seguro e seus endossos.
 
-Things you may want to cover:
+## Como Rodar a API
 
-* Ruby version
+1. Clone o repositório:
+```bash
+git clone git@github.com:lukec3x/sgt-d3.git
+cd sgt-d3
+```
 
-* System dependencies
+2. Suba os containers:
+```bash
+docker-compose up -d
+```
 
-* Configuration
+O Docker irá automaticamente configurar os bancos de dados de desenvolvimento e teste.
 
-* Database creation
+3. A API estará disponível em: **http://localhost:3000**
 
-* Database initialization
+### Parando a aplicação
 
-* How to run the test suite
+```bash
+docker-compose down
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Como Rodar os Testes
 
-* Deployment instructions
+### Todos os testes:
+```bash
+docker-compose exec web rspec
+```
 
-* ...
+### Testes específicos:
+```bash
+# Testes do controller Endorsement
+docker-compose exec web rspec spec/controllers/endorsements_controller_spec.rb
+
+# Testes do controller Policy
+docker-compose exec web rspec spec/controllers/policies_controller_spec.rb
+```
+
+## Collection do Postman
+
+Uma collection completa está incluída no arquivo `postman_collection.json`.
+
+### Como usar:
+
+1. Abra o Postman
+2. Clique em **Import**
+3. Selecione o arquivo `postman_collection.json`
+4. A collection "SGT - Desafio 3" será importada com todos os endpoints
+
+### O que está incluído:
+
+**Policies (Apólices)**
+- `GET /policies` - Listar todas as apólices
+- `GET /policies/:id` - Consultar apólice específica
+- `POST /policies` - Criar nova apólice
+
+**Endorsements (Endossos)**
+- `GET /policies/:policy_id/endorsements` - Listar endossos de uma apólice
+- `GET /endorsements/:id` - Consultar endosso específico
+- `POST /policies/:policy_id/endorsements` - Criar novo endosso
+- `POST /policies/:policy_id/endorsements/cancel` - Cancelar último endosso válido
+
+### Configuração:
+
+A collection já vem configurada com a variável `base_url` apontando para `http://localhost:3000`.
