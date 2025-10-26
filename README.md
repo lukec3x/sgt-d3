@@ -51,6 +51,15 @@ Uma collection completa está incluída no arquivo `postman_collection.json`.
 2. Clique em **Import**
 3. Selecione o arquivo `postman_collection.json`
 4. A collection "SGT - Desafio 3" será importada com todos os endpoints
+5. **Crie um Environment** com a variável `base_url` apontando para `http://localhost:3000`
+6. Selecione o environment criado antes de executar as requisições
+
+### Automação:
+
+A collection possui automação entre requisições:
+- Ao criar uma policy com `POST /policies`, o `policy_id` é automaticamente salvo no environment
+- Ao criar um endosso com `POST /policies/:policy_id/endorsements`, o `endorsement_id` é automaticamente salvo no environment
+- Esses IDs são usados automaticamente pelas demais requisições
 
 ### O que está incluído:
 
@@ -64,7 +73,3 @@ Uma collection completa está incluída no arquivo `postman_collection.json`.
 - `GET /endorsements/:id` - Consultar endosso específico
 - `POST /policies/:policy_id/endorsements` - Criar novo endosso
 - `POST /policies/:policy_id/endorsements/cancel` - Cancelar último endosso válido
-
-### Configuração:
-
-A collection já vem configurada com a variável `base_url` apontando para `http://localhost:3000`.
